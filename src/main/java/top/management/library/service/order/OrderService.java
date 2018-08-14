@@ -113,4 +113,9 @@ public class OrderService {
             return true;
         }
     }
+
+    public Page getAllOrders(Pageable pageable) {
+
+        return orderRepository.findAll(pageable);
+    }
 }

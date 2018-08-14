@@ -47,9 +47,6 @@ public class MenuService {
         if (currentUser == null){
             return new ArrayList<Menu>();
         }
-        if(currentUser.isAdmin()){
-            return findAllMenus();
-        }
         List<Menu> sourceList = findMenusFromUser(currentUser);
         return findMenuTree(sourceList);
     }

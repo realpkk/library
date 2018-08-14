@@ -176,36 +176,55 @@
                                             </td>
                                             <td>
                                                 <div class="hidden-sm hidden-xs btn-group">
-                                                    <button class="btn btn-xs btn-info" style="margin-right: 5px;margin-left: 5px"
-                                                            onclick="$.dialog.edit('${book.bookName}','${book.bookCode}','${book.bookAmount}','${book.bookRemain}','${book.orderSupport}');">
-                                                        <i class="ace-icon fa fa-pencil bigger-130">编辑</i>
-                                                    </button>
-                                                    <button class="btn btn-xs btn-danger" style="margin-left: 5px;margin-right: 5px"
-                                                            onclick="$.dialog.delete('${book.bookCode}');">
-                                                        <i class="ace-icon fa fa-trash-o bigger-130">删除</i>
-                                                    </button>
-                                                    <c:if test="${book.bookRemain ne 0}">
-                                                        <c:if test="${book.orderSupport eq 0}">
-                                                            <button class="btn btn-xs btn-warning" style="margin-left: 5px;margin-right: 5px"
-                                                                    onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',1)">
-                                                                <i class="ace-icon fa fa-book bigger-130">期刊订阅</i>
-                                                            </button>
-                                                        </c:if>
-                                                        <c:if test="${book.orderSupport eq 1}">
-                                                            <button class="btn btn-xs btn-success" style="margin-left: 5px;margin-right: 5px"
-                                                                    onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',2,'${user.loginName}');">
-                                                                <i class="ace-icon fa fa-shopping-cart bigger-130">整书购买</i>
-                                                            </button>
-                                                        </c:if>
-                                                    </c:if>
+                                                    <%--<button class="btn btn-xs btn-info" style="margin-right: 5px;margin-left: 5px"--%>
+                                                            <%--onclick="$.dialog.edit('${book.bookName}','${book.bookCode}','${book.bookAmount}','${book.bookRemain}','${book.orderSupport}');">--%>
+                                                        <%--<i class="ace-icon fa fa-pencil bigger-130">编辑</i>--%>
+                                                    <%--</button>--%>
+                                                    <%--<button class="btn btn-xs btn-danger" style="margin-left: 5px;margin-right: 5px"--%>
+                                                            <%--onclick="$.dialog.delete('${book.bookCode}');">--%>
+                                                        <%--<i class="ace-icon fa fa-trash-o bigger-130">删除</i>--%>
+                                                    <%--</button>--%>
+                                                    <%--<c:if test="${book.bookRemain ne 0}">--%>
+                                                        <%--<c:if test="${book.orderSupport eq 0}">--%>
+                                                            <%--<button class="btn btn-xs btn-warning" style="margin-left: 5px;margin-right: 5px"--%>
+                                                                    <%--onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',1)">--%>
+                                                                <%--<i class="ace-icon fa fa-book bigger-130">期刊订阅</i>--%>
+                                                            <%--</button>--%>
+                                                        <%--</c:if>--%>
+                                                        <%--<c:if test="${book.orderSupport eq 1}">--%>
+                                                            <%--<button class="btn btn-xs btn-success" style="margin-left: 5px;margin-right: 5px"--%>
+                                                                    <%--onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',2,'${user.loginName}');">--%>
+                                                                <%--<i class="ace-icon fa fa-shopping-cart bigger-130">整书购买</i>--%>
+                                                            <%--</button>--%>
+                                                        <%--</c:if>--%>
+                                                    <%--</c:if>--%>
                                                     <shiro:hasPermission name="info:book:order">
-
+                                                        <c:if test="${book.bookRemain ne 0}">
+                                                            <c:if test="${book.orderSupport eq 0}">
+                                                                <button class="btn btn-xs btn-warning" style="margin-left: 5px;margin-right: 5px"
+                                                                        onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',1)">
+                                                                    <i class="ace-icon fa fa-book bigger-130">期刊订阅</i>
+                                                                </button>
+                                                            </c:if>
+                                                            <c:if test="${book.orderSupport eq 1}">
+                                                                <button class="btn btn-xs btn-success" style="margin-left: 5px;margin-right: 5px"
+                                                                        onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',2,'${user.loginName}');">
+                                                                    <i class="ace-icon fa fa-shopping-cart bigger-130">整书购买</i>
+                                                                </button>
+                                                            </c:if>
+                                                        </c:if>
                                                     </shiro:hasPermission>
                                                     <shiro:hasPermission name="info:book:edit">
-
+                                                        <button class="btn btn-xs btn-info" style="margin-right: 5px;margin-left: 5px"
+                                                                onclick="$.dialog.edit('${book.bookName}','${book.bookCode}','${book.bookAmount}','${book.bookRemain}','${book.orderSupport}');">
+                                                            <i class="ace-icon fa fa-pencil bigger-130">编辑</i>
+                                                        </button>
                                                     </shiro:hasPermission>
                                                     <shiro:hasPermission name="info:book:delete">
-
+                                                        <button class="btn btn-xs btn-danger" style="margin-left: 5px;margin-right: 5px"
+                                                                onclick="$.dialog.delete('${book.bookCode}');">
+                                                            <i class="ace-icon fa fa-trash-o bigger-130">删除</i>
+                                                        </button>
                                                     </shiro:hasPermission>
                                                 </div>
                                             </td>

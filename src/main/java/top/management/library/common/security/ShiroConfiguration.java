@@ -78,17 +78,16 @@ public class ShiroConfiguration {
 
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
 
-//        filterChainDefinitionMap.put("/static/**","anon");
+        filterChainDefinitionMap.put("/static/**","anon");
 //        filterChainDefinitionMap.put("/index/**","anon");
 //        filterChainDefinitionMap.put("/test/**","anon");
 //        filterChainDefinitionMap.put("/book/**","anon");
-//        filterChainDefinitionMap.put("/toLogin","anon");
-//        filterChainDefinitionMap.put("/toRegister","anon");
-//        filterChainDefinitionMap.put("/register","anon");
-        filterChainDefinitionMap.put("/book/**","anon");
+        filterChainDefinitionMap.put("/toLogin","anon");
+        filterChainDefinitionMap.put("/toRegister","anon");
+        filterChainDefinitionMap.put("/register","anon");
         filterChainDefinitionMap.put("/logout","logout");
 
-        filterChainDefinitionMap.put("/**","anon");
+        filterChainDefinitionMap.put("/**","authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

@@ -48,7 +48,7 @@
     <c:forEach items="${menuList}" var="menu">
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-desktop"></i>
+                <i class="${menu.menuIcon}"></i>
                 <span class="menu-text"> ${menu.menuName} </span>
 
                 <b class="arrow fa fa-angle-down"></b>
@@ -58,9 +58,9 @@
             <ul class="submenu">
                 <c:forEach items="${menu.menuList}" var="childMenu">
                     <li class="">
-                        <a href="#">
+                        <a href="${childMenu.menuHref}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                                ${childMenu.menuName}
+                                <i class="${childMenu.menuIcon}"></i>${childMenu.menuName}
                         </a>
                         <b class="arrow"></b>
                     </li>

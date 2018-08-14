@@ -1,5 +1,6 @@
 package top.management.library.controller.order;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import top.management.library.common.utils.ExpireDateUtil;
 import top.management.library.common.utils.MapConvertUtil;
 import top.management.library.common.utils.OrderCodeGenerateUtil;
 import top.management.library.entity.order.Order;
+import top.management.library.entity.user.User;
 import top.management.library.service.book.BookService;
 import top.management.library.service.order.OrderService;
 import top.management.library.service.user.UserService;
@@ -48,9 +50,14 @@ public class OrderController {
     @RequestMapping("")
     public String showOrders(Model model){
 
-        String loginName = "testuser1";
-        //User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
-        Page page = orderService.getOrdersByLoginName(loginName,DEFAULT_PAGEABLE);
+        String currentUserLoginName = (String) SecurityUtils.getSubject().getPrincipal();
+        User user = userService.findUserByLoginName(currentUserLoginName);
+        Page page;
+        if (user.isAdmin()){
+            page = orderService.getAllOrders(DEFAULT_PAGEABLE);
+        }else {
+            page = orderService.getOrdersByLoginName(currentUserLoginName,DEFAULT_PAGEABLE);
+        }
         model.addAttribute("page",page);
         return "order";
     }
@@ -67,9 +74,10 @@ public class OrderController {
     @ResponseBody
     public Order saveOrder(@RequestBody Order order){
 
-        order.setOrderLoginName("testuser1");
-        order.setOrderCode(OrderCodeGenerateUtil.codeGenerate(order.getBookCode(),order.getType(),order.getOrderLoginName()));
-        order.setOrderUsername(userService.getUsernameByUserLoginName(order.getOrderLoginName()));
+        String currentUserLoginName = (String) SecurityUtils.getSubject().getPrincipal();
+        order.setOrderLoginName(currentUserLoginName);
+        order.setOrderCode(OrderCodeGenerateUtil.codeGenerate(order.getBookCode(),order.getType(),currentUserLoginName));
+        order.setOrderUsername(userService.getUsernameByUserLoginName(currentUserLoginName));
         order.setBookName(bookService.getBookNameByBookCode(order.getBookCode()));
         order.setPaymentStatus(0);
         if (order.getType()==1){

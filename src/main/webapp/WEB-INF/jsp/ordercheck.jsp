@@ -364,7 +364,7 @@
                                         <ul class="pagination pull-right no-margin">
                                             <li>
                                                 <button class="btn btn-xs btn-info bigger-120"
-                                                        onclick="$.controller.pay('${order.orderCode}');">确认支付</button>
+                                                        onclick="$.controller.pay('${order.orderCode}','${order.orderAmount}','${order.bookCode}');">确认支付</button>
                                                 <button class="btn btn-xs btn-warning bigger-120"
                                                         onclick="$.controller.renewalcancel('${order.orderCode}');">取消订单</button>
 
@@ -446,6 +446,12 @@
             selectOtherMonths: false,
         });
     })
+</script>
+<script>
+    $("#navbar").load("/index/navbar",function () {
+    });
+    $("#sidebar").load("/index/sidebar",function () {
+    });
 </script>
 </body>
 </html>

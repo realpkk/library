@@ -20,15 +20,20 @@
 
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../../static/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../static/css/jquery-ui.custom.min.css">
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="../../static/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="../../static/css/datepicker.css" />
+    <link rel="stylesheet" href="../../static/css/ui.jqgrid.css" />
+    <link rel="stylesheet" href="../../static/css/ace-fonts.css" />
     <link rel="stylesheet" href="../../static/css/ace.min.css" id="main-ace-style" />
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="../../static/css/ace-part2.min.css"/>
     <![endif]-->
-    <link rel="stylesheet" href="../../static/css/ace-skins.min.css" />
-    <link rel="stylesheet" href="../../static/css/ace-rtl.min.css" />
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="../../static/css/ace-ie.min.css"/>
     <![endif]-->
+    <script src="../../static/js/ace-extra.min.js"></script>
     <!--[if lte IE 8]>
     <script src="../../static/js/html5shiv.min.js"></script>
     <script src="../../static/js/respond.min.js"></script>
@@ -71,10 +76,10 @@
                                 <i class="ace-icon fa fa-times"></i>
                             </button>
 
-                            <i class="ace-icon fa fa-check green"></i>
+                            <%--<i class="ace-icon fa fa-check green"></i>--%>
 
-                            <strong class="green">最新公告：</strong>
-                            南航开通华中首条直达美国航线，广州-武汉-旧金山首航，为中部崛起注入创新活力
+                            <%--<strong class="green">最新公告：</strong>--%>
+                            <%--南航开通华中首条直达美国航线，广州-武汉-旧金山首航，为中部崛起注入创新活力--%>
                         </div>
                         <div class="row center">
                             <!--首页图片-->
@@ -107,7 +112,9 @@
 <script type="text/javascript">
     window.jQuery || document.write("<script src='../../static/js/jquery.min.js'>"+"<"+"/script>");
 </script>
+
 <!-- <![endif]-->
+
 <!--[if IE]>
 <script type="text/javascript">
     window.jQuery || document.write("<script src='static/js/jquery1x.min.js'>"+"<"+"/script>");
@@ -117,11 +124,16 @@
     if('ontouchstart' in document.documentElement) document.write("<script src='../../static/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
 <script src="../../static/js/bootstrap.min.js"></script>
-<!--[if lte IE 8]>
-<script src="../../static/js/excanvas.min.js"></script>
-<![endif]-->
-<script src="../../static/js/jquery-ui.custom.min.js"></script>
+
+<!-- page specific plugin scripts -->
+<script src="../../static/js/bootstrap-datepicker.min.js"></script>
+<script src="../../static/js/jquery.jqGrid.min.js"></script>
+<script src="../../static/js/grid.locale-en.js"></script>
+<script src="../../static/js/bootbox.min.js"></script>
+<script src="../../static/js/jquery-ui.min.js"></script>
 <script src="../../static/js/jquery.ui.touch-punch.min.js"></script>
+
+<!-- ace scripts -->
 <script src="../../static/js/ace-elements.min.js"></script>
 <script src="../../static/js/ace.min.js"></script>
 <script>

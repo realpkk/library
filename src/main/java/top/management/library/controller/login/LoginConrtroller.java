@@ -45,7 +45,6 @@ public class LoginConrtroller {
                           @RequestParam(required = true,value = "password")String password, Model model){
 
         Subject currentUser = SecurityUtils.getSubject();
-//        User loginUser = userService.findUserByLoginName(loginName);
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginName,password);
         try {
             currentUser.login(usernamePasswordToken);
@@ -56,10 +55,6 @@ public class LoginConrtroller {
             model.addAttribute("message","用户名或密码错误");
             return "login";
         }
-//        model.addAttribute("user",loginUser);
-//        List<Menu> menuList = menuService.getCompleteMenuFromUser(loginUser);
-//        model.addAttribute("menuList",menuList);
-
         return "homepage";
     }
 

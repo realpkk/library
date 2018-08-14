@@ -347,34 +347,34 @@
                                                     <input type="text" class=" form-control"   name="expireTime__D_LTE" value="${param.expireTime__D_LTE}">
                                                 </div>
                                             </td>
-                                            <%--<td class="left">--%>
-                                            <%--<shiro:hasPermission name="search:order:loginName">登录ID：</shiro:hasPermission>--%>
-                                            <%--</td>--%>
-                                            <%--<td class="right">--%>
-                                            <%--<shiro:hasPermission name="search:order:loginName">--%>
-                                            <%--<input type="text" size="16"id="loginName" value="${search.loginName}"/>--%>
-                                            <%--</shiro:hasPermission>--%>
-                                            <%--</td>--%>
-                                            <%--<td class="left">--%>
-                                            <%--<shiro:hasPermission name="search:order:username">订单号：</shiro:hasPermission>--%>
-                                            <%--</td>--%>
-                                            <%--<td class="right">--%>
-                                            <%--<shiro:hasPermission name="search:order:ordercode">--%>
-                                            <%--<input type="text" size="16"id="ordercode" value="${search.orderCode}"/>--%>
-                                            <%--</shiro:hasPermission>--%>
-                                            <%--</td>--%>
                                             <td class="left">
-                                                登录ID：
+                                            <shiro:hasPermission name="search:order:loginName">登录ID：</shiro:hasPermission>
                                             </td>
                                             <td class="right">
-                                                <input type="text" size="16"id="orderLoginName" name="orderLoginName__S_EQ" value="${param.orderLoginName__S_EQ}"/>
+                                            <shiro:hasPermission name="search:order:loginName">
+                                            <input type="text" size="16"id="loginName" value="${search.loginName}"/>
+                                            </shiro:hasPermission>
                                             </td>
                                             <td class="left">
-                                                订单号：
+                                            <shiro:hasPermission name="search:order:username">订单号：</shiro:hasPermission>
                                             </td>
                                             <td class="right">
-                                                <input type="text" size="16"id="orderCode" name="orderCode__S_EQ" value="${param.orderCode__S_EQ}"/>
+                                            <shiro:hasPermission name="search:order:ordercode">
+                                            <input type="text" size="16"id="ordercode" value="${search.orderCode}"/>
+                                            </shiro:hasPermission>
                                             </td>
+                                            <%--<td class="left">--%>
+                                                <%--登录ID：--%>
+                                            <%--</td>--%>
+                                            <%--<td class="right">--%>
+                                                <%--<input type="text" size="16"id="orderLoginName" name="orderLoginName__S_EQ" value="${param.orderLoginName__S_EQ}"/>--%>
+                                            <%--</td>--%>
+                                            <%--<td class="left">--%>
+                                                <%--订单号：--%>
+                                            <%--</td>--%>
+                                            <%--<td class="right">--%>
+                                                <%--<input type="text" size="16"id="orderCode" name="orderCode__S_EQ" value="${param.orderCode__S_EQ}"/>--%>
+                                            <%--</td>--%>
                                             <td></td>
                                         </tr>
                                     </table>
@@ -637,6 +637,12 @@
             $(this).next().focus();
         });
     })
+</script>
+<script>
+    $("#navbar").load("/index/navbar",function () {
+    });
+    $("#sidebar").load("/index/sidebar",function () {
+    });
 </script>
 </body>
 </html>
