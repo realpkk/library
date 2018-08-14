@@ -4,18 +4,19 @@ $(function () {
     };
     $.extend($.dialog,{
 
-        pay:function (orderCode,bookName,createTime,expireTime,type) {
+        pay:function (orderCode,bookCode,bookName,orderAmount,createTime,expireTime,type) {
             if(type == 2){
                 bootbox.dialog({
                     message:"<div class='row'><div class='col-sm-12'>订单编号：<input type='text' width='250' value='"+orderCode+"'></div></div><hr />"+
                     "<div class='row'><div class='col-sm-12'>图书书名：<input type='text'value='"+bookName+"'></div></div><hr />"+
-                    "<div class='row'><div class='col-sm-12'>订购时间：<input type='text'value='"+createTime+"'></div></div><hr />",
+                    "<div class='row'><div class='col-sm-12'>订购数量：<input type='text'value='"+orderAmount+"'></div></div><hr />"+
+                    "<div class='row'><div class='col-sm-12'>订购时间：<input type='text'value='"+createTime+"'></div></div>",
                     buttons:{
                         "success":{
                             "label":"<i class='ace-icon fa fa-check'></i>确认支付",
                             "className":"btn-sm btn-success",
                             "callback":function () {
-                                $.controller.pay(orderCode);
+                                $.controller.pay(orderCode,orderAmount,bookCode);
                             }
                         },
                         "click":{
@@ -28,6 +29,7 @@ $(function () {
                 bootbox.dialog({
                     message:"<div class='row'><div class='col-sm-12'>订单编号：<input type='text'value='"+orderCode+"'></div></div><hr />"+
                     "<div class='row'><div class='col-sm-12'>图书书名：<input type='text'value='"+bookName+"'></div></div><hr />"+
+                    "<div class='row'><div class='col-sm-12'>订购数量：<input type='text'value='"+orderAmount+"'></div></div><hr />"+
                     "<div class='row'><div class='col-sm-12'>订购时间：<input type='text'value='"+createTime+"'></div></div><hr />"+
                     "<div class='row'><div class='col-sm-12'>到期时间：<input type='text'value='"+expireTime+"'></div></div><hr />",
                     buttons:{
@@ -35,7 +37,7 @@ $(function () {
                             "label":"<i class='ace-icon fa fa-check'></i>确认支付",
                             "className":"btn-sm btn-success",
                             "callback":function () {
-                                $.controller.pay(orderCode);
+                                $.controller.pay(orderCode,orderAmount,bookCode);
                             }
                         },
                         "click":{

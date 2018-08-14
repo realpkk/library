@@ -187,7 +187,7 @@
                                                     <c:if test="${book.bookRemain ne 0}">
                                                         <c:if test="${book.orderSupport eq 0}">
                                                             <button class="btn btn-xs btn-warning" style="margin-left: 5px;margin-right: 5px"
-                                                                    onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',1,'${user.loginName}')">
+                                                                    onclick="$.dialog.order('${book.bookCode}','${book.bookName}','${book.bookRemain}',1)">
                                                                 <i class="ace-icon fa fa-book bigger-130">期刊订阅</i>
                                                             </button>
                                                         </c:if>

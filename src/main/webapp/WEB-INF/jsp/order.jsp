@@ -435,7 +435,7 @@
                                                 <div class="hidden-sm hidden-xs btn-group">
                                                     <c:if test="${order.paymentStatus eq 0}">
                                                         <button class="btn btn-xs btn-success" style="margin-right: 5px;margin-left: 5px"
-                                                                onclick="$.dialog.pay('${order.orderCode}','${order.bookName}','${order.createTime}','${order.expireTime}','${order.type}');">
+                                                                onclick="$.dialog.pay('${order.orderCode}','${order.bookCode}','${order.bookName}','${order.orderAmount}','${order.createTime}','${order.expireTime}','${order.type}');">
                                                             <i class="ace-icon fa fa-check bigger-130">确认支付</i>
                                                         </button>
                                                         <button class="btn btn-xs btn-warning" style="margin-right: 5px;margin-left: 5px" onclick="$.dialog.cancel('${order.orderCode}');">

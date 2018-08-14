@@ -18,15 +18,15 @@ $(function () {
 
         },
         
-        order:function (bookCode,type,loginName,orderAmount) {
-            var data = {"bookCode":bookCode,"type":type,"orderLoginName":loginName,"orderAmount":orderAmount};
+        order:function (bookCode,type,orderAmount) {
+            var data = {"bookCode":bookCode,"type":type,"orderAmount":orderAmount};
             var json = JSON.stringify(data);
             var url = "/order/check?"+"&orderCode=";
             $.common.redirectAjaxAction("/order/save",json,url);
         },
         
-        subscribe:function (orderPeriod,bookCode,type,loginName,orderAmount) {
-            var data = {"orderPeriod":orderPeriod,"bookCode":bookCode,"type":type,"orderLoginName":loginName,"orderAmount":orderAmount};
+        subscribe:function (orderPeriod,bookCode,type,orderAmount) {
+            var data = {"orderPeriod":orderPeriod,"bookCode":bookCode,"type":type,"orderAmount":orderAmount};
             var json = JSON.stringify(data);
             var url = "/order/check?"+"&orderCode=";
             $.common.redirectAjaxAction("/order/save",json,url);

@@ -7,8 +7,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.management.library.common.utils.ExpireDateUtil;
+import top.management.library.entity.book.Book;
 import top.management.library.entity.order.Order;
 
+import top.management.library.repository.BookRepository;
 import top.management.library.repository.OrderRepository;
 
 import java.util.Date;
@@ -18,6 +20,9 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
 
     @Transactional(rollbackFor = Exception.class)
@@ -97,5 +102,15 @@ public class OrderService {
     public void orderClean(){
 
         orderRepository.deleteOrderByPaymentStatus();
+    }
+
+    public boolean inventoryCheck(String bookCode, Integer orderAmount) {
+
+        Book book = bookRepository.findBookByBookCode(bookCode);
+        if (orderAmount>book.getBookRemain()){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

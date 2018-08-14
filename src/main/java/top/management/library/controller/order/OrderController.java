@@ -75,7 +75,6 @@ public class OrderController {
         if (order.getType()==1){
             order.setExpireTime(ExpireDateUtil.dateCalculate(new Date(),order.getOrderPeriod()));
         }
-        bookService.bookRemainUpdateByBookCode(order.getBookCode(),order.getOrderAmount());
         Order savedOrder = orderService.createOrder(order);
         return savedOrder;
     }
@@ -101,8 +100,15 @@ public class OrderController {
     @ResponseBody
     public String payOrder(@RequestBody Order order){
 
-        orderService.payForOrderByOrderCode(order.getOrderCode());
-        return "订单:\n"+order.getOrderCode()+"\n支付成功!";
+        if (orderService.inventoryCheck(order.getBookCode(),order.getOrderAmount())){
+            orderService.payForOrderByOrderCode(order.getOrderCode());
+            bookService.bookRemainUpdateByBookCode(order.getBookCode(),order.getOrderAmount());
+            return "订单:\n"+order.getOrderCode()+"\n支付成功!";
+        }else {
+            orderService.cancelOrderByOrderCode(order.getOrderCode());
+            return "库存不足!\n订单:\n"+order.getOrderCode()+"\n已取消!";
+        }
+
     }
 
     @RequestMapping("/cancel")

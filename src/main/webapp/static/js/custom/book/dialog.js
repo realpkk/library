@@ -80,11 +80,12 @@ $(function () {
             }
         },
 
-        order:function (bookCode,bookName,bookRemain,type,loginName) {
+        order:function (bookCode,bookName,bookRemain,type) {
             if(type==2){
                 bootbox.dialog({
-                    message:"<div class='row'><div class='col-sm-12'>图书书名：<input type='text' id='editBookName' value='" +bookName+ "'disabled='disabled'></div></div><hr />" +
-                    "<div class='row'><div class='col-sm-12'>图书编码：<input type='text' id='editBookCode'value='"+bookCode+"'disabled='disabled'></div></div><hr />"+
+                    message:"<div class='row'><div class='col-sm-12'>图书书名：<input type='text' value='" +bookName+ "'disabled='disabled'></div></div><hr />" +
+                    "<div class='row'><div class='col-sm-12'>图书编码：<input type='text' value='"+bookCode+"'disabled='disabled'></div></div><hr />"+
+                    "<div class='row'><div class='col-sm-12'>图书库存：<input type='text' value='"+bookRemain+"'disabled='disabled'></div></div><hr />"+
                     "<div class='row'><div class='col-sm-12'><span class='bigger-110'>请输入订购数量：</span><input type='text' id='orderAmount'/></div></div>",
                     buttons:{
                         "success":{
@@ -92,11 +93,7 @@ $(function () {
                             "className":"btn-sm btn-success",
                             "callback": function () {
                                 var orderAmount = $("#orderAmount").val();
-                                if(parseInt(orderAmount) > parseInt(bookRemain)) {
-                                    alert("超出最大库存!");
-                                } else {
-                                    $.controller.order(bookCode,type,loginName,orderAmount);}
-
+                                $.controller.order(bookCode,type,orderAmount);
                             }
                         },
                         "click":{
@@ -108,8 +105,9 @@ $(function () {
             }
             else{
                 bootbox.dialog({
-                    message:"<div class='row'><div class='col-sm-12'>图书书名：<input type='text' id='editBookName' value='" +bookName+ "'></div></div><hr />" +
-                    "<div class='row'><div class='col-sm-12'>图书编码：<input type='text' id='editBookCode'value='"+bookCode+"'disabled='disabled'></div></div><hr />"+
+                    message:"<div class='row'><div class='col-sm-12'>图书书名：<input type='text' value='" +bookName+ "'></div></div><hr />" +
+                    "<div class='row'><div class='col-sm-12'>图书编码：<input type='text'value='"+bookCode+"'disabled='disabled'></div></div><hr />"+
+                    "<div class='row'><div class='col-sm-12'>图书库存：<input type='text' value='"+bookRemain+"'disabled='disabled'></div></div><hr />"+
                     "<div class='row'><div class='col-sm-12'>请输入订购数量：<input type='text' id='orderAmount'/></div></div>"+
                     "<div class='row'><div class='col-sm-12'>请选择借阅期限：" +
                     "<select id='orderPeriod'><option value='1'selected='selected'>一个月</option><option value='2'>一季度</option><option value='3'>半年</option><option value='4'>一年</option></select>" +
@@ -121,10 +119,7 @@ $(function () {
                             "callback": function () {
                                 var orderPeriod = $("#orderPeriod").val();
                                 var orderAmount = $("#orderAmount").val();
-                                if(parseInt(orderAmount) > parseInt(bookRemain)){alert("超出最大库存!");}
-                                else {
-                                    $.controller.subscribe(orderPeriod,bookCode,type,loginName,orderAmount);}
-
+                                $.controller.subscribe(orderPeriod,bookCode,type,orderAmount);
                             }
                         },
                         "click":{
@@ -135,44 +130,6 @@ $(function () {
                 })
             }
         }
-    });
-
-    $("#bootbox-options").on(ace.click_event, function() {
-        bootbox.dialog({
-            message: "<div class='row'><div class='col-sm-12'><span class='bigger-110'>请真实填写您的名字：</span><input type='text' /></div></div><hr /><div class='row'><div class='col-sm-12'><span class='bigger-110'>请填写您的电话号码：</span><input type='text' /></div></div>",
-            buttons:
-                {
-                    "success" :
-                        {
-                            "label" : "<i class='ace-icon fa fa-check'></i> 确定",
-                            "className" : "btn-sm btn-success",
-                            "callback": function() {
-                                //Example.show("great success");
-                            }
-                        },
-                    "danger" :
-                        {
-                            "label" : "确定删除",
-                            "className" : "btn-sm btn-danger",
-                            "callback": function() {
-                                //Example.show("uh oh, look out!");
-                            }
-                        },
-                    "click" :
-                        {
-                            "label" : "重置一下",
-                            "className" : "btn-sm btn-primary",
-                            "callback": function() {
-                                //Example.show("Primary button");
-                            }
-                        },
-                    "button" :
-                        {
-                            "label" : "这TM就只是个按钮而已",
-                            "className" : "btn-sm"
-                        }
-                }
-        });
     });
 })
 

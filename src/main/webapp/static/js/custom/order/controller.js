@@ -3,9 +3,9 @@ $(function () {
         
     }
     $.extend($.controller,{
-        pay:function (orderCode) {
+        pay:function (orderCode,orderAmount,bookCode) {
             var url = "/order/pay";
-            var data = {"orderCode":orderCode};
+            var data = {"orderCode":orderCode,"orderAmount":orderAmount,"bookCode":bookCode};
             var json = JSON.stringify(data);
             $.common.refreshAjaxAction(url,json);
         },
