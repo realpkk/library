@@ -274,7 +274,7 @@
                             <div class="col-xs-12">
 
                                 <div class="table-header">
-                                    订单信息
+                                    信息
                                 </div>
                                 <form id="search">
                                     <table width="100%" class="CSSearchTbl" cellpadding="0" cellspacing="0" id="searchTable">
@@ -348,20 +348,16 @@
                                                 </div>
                                             </td>
                                             <td class="left">
-                                            <shiro:hasPermission name="search:order:loginName">登录ID：</shiro:hasPermission>
+                                            登录ID：
                                             </td>
                                             <td class="right">
-                                            <shiro:hasPermission name="search:order:loginName">
-                                            <input type="text" size="16"name="orderLoginName__S_EQ" value="${param.orderLoginName__S_EQ}"/>
-                                            </shiro:hasPermission>
+                                            <input type="text" size="16"id="orderLoginName" name="orderLoginName__S_EQ" value="${param.orderLoginName__S_EQ}"/>
                                             </td>
                                             <td class="left">
-                                            <shiro:hasPermission name="search:order:ordercode">订单号：</shiro:hasPermission>
+                                            订单号：
                                             </td>
                                             <td class="right">
-                                            <shiro:hasPermission name="search:order:ordercode">
-                                            <input type="text" size="16"name="orderCode__S_EQ" value="${param.orderCode__S_EQ}"/>
-                                            </shiro:hasPermission>
+                                            <input type="text" size="16"id="orderCode" name="orderCode__S_EQ" value="${param.orderCode__S_EQ}"/>
                                             </td>
                                             <td></td>
                                         </tr>
@@ -374,77 +370,53 @@
                                     <thead>
                                     <tr>
                                         <th width="50">序号</th>
-                                        <th width="60%">订单单号</th>
-                                        <th width="80">订单类型</th>
+                                        <th width="60%">申请流水</th>
+                                        <th width="60%">订单号</th>
                                         <th width="150">图书编码</th>
                                         <th width="150">图书书名</th>
-                                        <th width="50">订单数量</th>
                                         <th width="150">订单时间</th>
-                                        <th width="80">订单期限</th>
-                                        <th width="150">到期时间</th>
-                                        <th width="80">订单状态</th>
-                                        <th width="100">订单人(用户登录ID)</th>
+                                        <th width="80">处理进度</th>
+                                        <th width="100">申请人</th>
                                         <th width="50%">操作</th>
                                     </tr>
                                     </thead>
                                     <c:if test="${page.totalPages eq 0}">
-                                        <td colspan="11" style="text-align: center">无相关记录</td>
+                                        <td colspan="9" style="text-align: center">无相关记录</td>
                                     </c:if>
                                     <tbody>
-                                    <c:forEach items="${page.content}" var="order" varStatus="status">
+                                    <c:forEach items="${page.content}" var="refund" varStatus="status">
                                         <tr>
                                             <td>${status.index+1}</td>
-                                            <td>${order.orderCode}</td>
+                                            <td>${refund.refundCode}</td>
+                                            <td>${refund.refundOrderCode}</td>
+                                            <td>${refund.refundBookCode}</td>
+                                            <td>${refund.refundBookName}</td>
+                                            <td><fmt:formatDate value="${refund.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                             <td>
-                                                <c:if test="${order.type eq 1}"><span class="label label-sm label-success">期刊订购</span></c:if>
-                                                <c:if test="${order.type eq 2}"><span class="label label-sm label-warning">整书购买</span></c:if>
+                                                <c:if test="${refund.approvalStatus eq 1}"><span class="label label-sm label-inverse">受理中</span></c:if>
+                                                <c:if test="${refund.approvalStatus eq 2}"><span class="label label-sm label-success">已通过</span></c:if>
+                                                <c:if test="${refund.approvalStatus eq 2}"><span class="label label-sm label-danger">已驳回</span></c:if>
                                             </td>
-                                            <td>${order.bookCode}</td>
-                                            <td>${order.bookName}</td>
-                                            <td>${order.orderAmount}</td>
-                                            <td><fmt:formatDate value="${order.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                            <td>
-                                                <span class="label label-sm label-default" style="width: 60px;"><c:if test="${order.orderPeriod eq 1}">一个月</c:if></span>
-                                                <span class="label label-sm label-default" style="width: 60px;"><c:if test="${order.orderPeriod eq 2}">一季度</c:if></span>
-                                                <span class="label label-sm label-default" style="width: 60px;"><c:if test="${order.orderPeriod eq 3}">半年</c:if></span>
-                                                <span class="label label-sm label-default" style="width: 60px;"><c:if test="${order.orderPeriod eq 4}">一年</c:if></span>
-
-                                            </td>
-                                            <td><fmt:formatDate value="${order.expireTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                            <td>
-                                                <c:if test="${order.paymentStatus eq 0}"><span class="label label-sm label-warning">未支付</span></c:if>
-                                                <c:if test="${order.paymentStatus eq 1}"><span class="label label-sm label-success">已支付</span></c:if>
-                                                <c:if test="${order.paymentStatus eq 2}"><span class="label label-sm label-info">订阅中</span></c:if>
-                                                <c:if test="${order.paymentStatus eq 3}"><span class="label label-sm label-inverse">已退订</span></c:if>
-                                                <c:if test="${order.paymentStatus eq 4}"><span class="label label-sm label-danger">已到期</span></c:if>
-                                            </td>
-                                            <td>${order.orderLoginName}</td>
+                                            <td>${refund.refundLauncher}</td>
                                             <td>
                                                 <div class="hidden-sm hidden-xs btn-group">
-                                                    <c:if test="${order.paymentStatus eq 0}">
-                                                        <button class="btn btn-xs btn-success" style="margin-right: 5px;margin-left: 5px"
-                                                                onclick="$.dialog.pay('${order.orderCode}','${order.bookCode}','${order.bookName}','${order.orderAmount}','${order.createTime}','${order.expireTime}','${order.type}');">
-                                                            <i class="ace-icon fa fa-check bigger-130">确认支付</i>
+                                                    <shiro:lacksPermission name="refund:approve"  >
+                                                        <button class="btn btn-xs btn-warning" style="margin-right: 5px;margin-left: 5px">
+                                                            <i class="ace-icon fa fa-exclamation bigger-130">提醒审批</i>
                                                         </button>
-                                                        <button class="btn btn-xs btn-warning" style="margin-right: 5px;margin-left: 5px" onclick="$.dialog.cancel('${order.orderCode}');">
-                                                            <i class="ace-icon fa fa-times bigger-130">取消订单</i>
+                                                        <button class="btn btn-xs btn-danger" style="margin-right: 5px;margin-left: 5px">
+                                                            <i class="ace-icon fa fa-times-circle bigger-130">取消申请</i>
                                                         </button>
-                                                    </c:if>
-                                                    <c:if test="${order.paymentStatus eq 2||order.paymentStatus eq 4}">
-                                                        <button class="btn btn-xs btn-info" style="margin-right: 5px;margin-left: 5px" onclick="$.dialog.renew('${order.orderCode}','${order.bookName}');">
-                                                            <i class="ace-icon fa fa-book bigger-130">续订</i>
+                                                    </shiro:lacksPermission>
+                                                    <shiro:hasPermission name="refund:approve">
+                                                        <button class="btn btn-xs btn-success" style="margin-right: 5px;margin-left: 5px">
+                                                            <i class="ace-icon fa fa-check bigger-130">申请通过</i>
                                                         </button>
-                                                        <button class="btn btn-xs btn-warning" style="margin-right: 5px;margin-left: 5px"
-                                                                onclick="$.dialog.unsubscribe('${order.orderCode}','${order.bookName}','${order.createTime}','${order.expireTime}');">
-                                                            <i class="ace-icon fa fa-book bigger-130">退订</i>
+                                                        <button class="btn btn-xs btn-danger" style="margin-right: 5px;margin-left: 5px">
+                                                            <i class="ace-icon fa fa-times bigger-130">申请驳回</i>
                                                         </button>
-                                                    </c:if>
-                                                    <c:if test="${order.paymentStatus eq 1}">
-                                                        <button class="btn btn-xs btn-danger" style="margin-right: 5px;margin-left: 5px"
-                                                                onclick="$.dialog.refund('${order.orderCode}','${order.bookName}','${order.createTime}');">
-                                                            <i class="ace-icon fa fa-times bigger-130">退款</i>
-                                                        </button>
-                                                    </c:if>
+                                                    </shiro:hasPermission>
+
                                                 </div>
                                             </td>
                                         </tr>

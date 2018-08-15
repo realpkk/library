@@ -4,9 +4,9 @@ import top.management.library.entity.order.Order;
 
 import java.util.Date;
 
-public class OrderCodeGenerateUtil {
+public class CodeGenerateUtil {
 
-    public static String codeGenerate(String bookCode,Integer type,String orderLoginName){
+    public static String orderCodeGenerate(String bookCode,Integer type,String orderLoginName){
 
         Long timeStamp = System.currentTimeMillis();
         String timeCode = timeStamp.toString();
@@ -14,6 +14,14 @@ public class OrderCodeGenerateUtil {
         String typeCode = type.toString();
         String userCode = toASCII(orderLoginName);
         return timeCode+"-"+genBookCode+"-"+typeCode+"-"+userCode;
+    }
+
+    public static String refundCodeGenerate(String launcher){
+
+        Long timeStamp = System.currentTimeMillis();
+        String timeCode = timeStamp.toString();
+        String launcherCode = toASCII(launcher);
+        return timeCode+"-"+launcherCode;
     }
 
     public static String toASCII(String str){

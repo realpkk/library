@@ -7,12 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.management.library.common.search.SearchFilter;
+import top.management.library.common.search.SpecificationUtil;
 import top.management.library.entity.book.Book;
-import top.management.library.entity.page.BookInquiry;
-import top.management.library.entity.page.PageInfo;
 import top.management.library.repository.BookRepository;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BookService{
@@ -60,5 +61,17 @@ public class BookService{
     public Page<Book> findBooks(Pageable pageable) {
 
         return bookRepository.findAll(pageable);
+    }
+
+    public Page<Book> getPage(Map<String,String> paramMap, Pageable pageable) {
+
+        List<SearchFilter> searchFilterList = SearchFilter.getSearchFilterList(paramMap);
+        Specification<Book> specification = SpecificationUtil.getSpecification(searchFilterList);
+        Page<Book> page = getBooks(specification, pageable);
+        if (page.getTotalPages() <= page.getNumber() + 1 && page.getTotalPages() != 0) {
+            Pageable newPageable = new PageRequest(page.getTotalPages() - 1, pageable.getPageSize());
+            page = getBooks(specification, newPageable);
+        }
+        return page;
     }
 }

@@ -5,18 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import top.management.library.common.search.SearchFilter;
-import top.management.library.common.search.SpecificationUtil;
 import top.management.library.common.utils.ExpireDateUtil;
 import top.management.library.common.utils.MapConvertUtil;
-import top.management.library.common.utils.OrderCodeGenerateUtil;
+import top.management.library.common.utils.CodeGenerateUtil;
 import top.management.library.entity.order.Order;
 import top.management.library.entity.user.User;
 import top.management.library.service.book.BookService;
@@ -26,15 +23,11 @@ import top.management.library.service.user.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
-
-    private final Integer DEFAULT_PAGE = 0;
-    private final Integer DEFAULT_PAGE_SIZE = 10;
 
     private final Pageable DEFAULT_PAGEABLE = new PageRequest(0,10);
 
@@ -76,7 +69,7 @@ public class OrderController {
 
         String currentUserLoginName = (String) SecurityUtils.getSubject().getPrincipal();
         order.setOrderLoginName(currentUserLoginName);
-        order.setOrderCode(OrderCodeGenerateUtil.codeGenerate(order.getBookCode(),order.getType(),currentUserLoginName));
+        order.setOrderCode(CodeGenerateUtil.orderCodeGenerate(order.getBookCode(),order.getType(),currentUserLoginName));
         order.setOrderUsername(userService.getUsernameByUserLoginName(currentUserLoginName));
         order.setBookName(bookService.getBookNameByBookCode(order.getBookCode()));
         order.setPaymentStatus(0);
@@ -91,7 +84,7 @@ public class OrderController {
     public String getBooks(HttpServletResponse response, HttpServletRequest request, Model model){
 
         Map<String,String> paramMap = MapConvertUtil.getParameterMap(request);
-        model.addAttribute("page",getPage(paramMap,DEFAULT_PAGEABLE));
+        model.addAttribute("page",orderService.getPage(paramMap,DEFAULT_PAGEABLE));
         return "order";
     }
 
@@ -100,7 +93,7 @@ public class OrderController {
 
         Pageable pageable = new PageRequest
                 (Integer.parseInt(request.getParameter("@pageNumber")),Integer.parseInt(request.getParameter("@pageSize")));
-        model.addAttribute("page",getPage(MapConvertUtil.getParameterMap(request),pageable));
+        model.addAttribute("page",orderService.getPage(MapConvertUtil.getParameterMap(request),pageable));
         return "order";
     }
 
@@ -151,30 +144,4 @@ public class OrderController {
         orderService.unsubscribeOrderByOrderCode(order.getOrderCode());
         return "订单:\n"+order.getOrderCode()+"\n已退订!";
     }
-
-    @RequestMapping("/refund")
-    @ResponseBody
-    public String refundOrder(@RequestBody Order order){
-
-        orderService.refundOrderByOrderCode(order.getOrderCode());
-        return "订单:\n"+order.getOrderCode()+"\n已退款!";
-    }
-    /**
-     *
-     * @param paramMap
-     * @param pageable
-     * @return page
-     */
-    public Page<Order> getPage(Map<String,String> paramMap, Pageable pageable){
-
-        List<SearchFilter> searchFilterList = SearchFilter.getSearchFilterList(paramMap);
-        Specification<Order> specification = SpecificationUtil.getSpecification(searchFilterList);
-        Page<Order> page = orderService.getOrders(specification,pageable);
-        if (page.getTotalPages()<=page.getNumber()+1&&page.getTotalPages()!=0){
-            Pageable newPageable = new PageRequest(page.getTotalPages()-1,pageable.getPageSize());
-            page = orderService.getOrders(specification,newPageable);
-        }
-        return page;
-    }
-
 }

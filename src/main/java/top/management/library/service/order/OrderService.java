@@ -2,10 +2,13 @@ package top.management.library.service.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.management.library.common.search.SearchFilter;
+import top.management.library.common.search.SpecificationUtil;
 import top.management.library.common.utils.ExpireDateUtil;
 import top.management.library.entity.book.Book;
 import top.management.library.entity.order.Order;
@@ -14,6 +17,8 @@ import top.management.library.repository.BookRepository;
 import top.management.library.repository.OrderRepository;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderService {
@@ -117,5 +122,17 @@ public class OrderService {
     public Page getAllOrders(Pageable pageable) {
 
         return orderRepository.findAll(pageable);
+    }
+
+    public Page<Order> getPage(Map<String,String> paramMap, Pageable pageable){
+
+        List<SearchFilter> searchFilterList = SearchFilter.getSearchFilterList(paramMap);
+        Specification<Order> specification = SpecificationUtil.getSpecification(searchFilterList);
+        Page<Order> page = getOrders(specification,pageable);
+        if (page.getTotalPages()<=page.getNumber()+1&&page.getTotalPages()!=0){
+            Pageable newPageable = new PageRequest(page.getTotalPages()-1,pageable.getPageSize());
+            page = getOrders(specification,newPageable);
+        }
+        return page;
     }
 }

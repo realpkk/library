@@ -372,7 +372,7 @@
                                         </ul>
                                     </div>
 
-                                    <div class="hr hr8 hr-double hr-dotted"></div>
+                                    <div class="hr hr8 hr-double hr-dotted "></div>
 
                                 </div>
                             </div>

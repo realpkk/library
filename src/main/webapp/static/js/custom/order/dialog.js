@@ -118,13 +118,15 @@ $(function () {
             bootbox.dialog({
                 message:"<div class='row'><div class='col-sm-12'>订单编号：<input type='text'value='"+orderCode+"'></div></div><hr />"+
                 "<div class='row'><div class='col-sm-12'>图书书名：<input type='text'value='"+bookName+"'></div></div><hr />"+
-                "<div class='row'><div class='col-sm-12'>订购时间：<input type='text'value='"+createTime+"'></div></div>",
+                "<div class='row'><div class='col-sm-12'>订购时间：<input type='text'value='"+createTime+"'></div></div><hr />"+
+                "<div class='row'><div class='col-sm-12'><textarea class='col-sm-12' id='refundDescription'></textarea></div></div>",
                 buttons:{
                     "danger":{
                         "label":"<i class='ace-icon fa fa-times-circle'></i>退款",
                         "className":"btn-sm btn-danger",
                         "callback": function () {
-                            $.controller.refund(orderCode);
+                            var refundDescription = $("#refundDescription").val();
+                            $.controller.refund(orderCode,refundDescription);
                         }
                     },
                     "click":{

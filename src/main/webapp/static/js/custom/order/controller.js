@@ -39,9 +39,9 @@ $(function () {
             $.common.refreshAjaxAction(url,json);
         },
 
-        refund:function (orderCode) {
-            var url = "/order/refund";
-            var data = {"orderCode":orderCode};
+        refund:function (orderCode,refundDescription) {
+            var url = "/workflow/refund";
+            var data = {"refundOrderCode":orderCode,"refundDescription":refundDescription};
             var json = JSON.stringify(data);
             $.common.refreshAjaxAction(url,json);
         }
