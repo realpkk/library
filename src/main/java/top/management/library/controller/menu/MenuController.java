@@ -7,9 +7,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/menu")
 public class MenuController {
 
-    @RequestMapping("")
-    public String toMenu(){
-
-        return "/test/leftmenu";
-    }
 }

@@ -247,13 +247,13 @@
             <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="/menu">首页</a>
+                    <a href="/homepage">首页</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">表格</a>
+                    <a href="javascript:void(0)">订单管理</a>
                 </li>
                 <li>
-                    <a href="elements.html">图书信息</a>
+                    <a href="/afterSale">售后处理</a>
                 </li>
             </ul><!-- /.breadcrumb -->
 
@@ -283,83 +283,60 @@
                                                 图书书名：
                                             </td>
                                             <td class="right">
-                                                <input type="text" size="25" id="bookName" name="bookName__S_LIKE" value="${param.bookName__S_LIKE}"/>
+                                                <input type="text" size="25"  name="bookName__S_LIKE" value="${param.bookName__S_LIKE}"/>
                                             </td>
                                             <td class="left col-lg-1">图书编码：</td>
-                                            <td class="right"><input type="text" size="16"id="bookCode" name="bookCode__S_LIKE" value="${param.bookCode__S_LIKE}"/></td>
-                                            <td class="left">订单情况：</td>
-                                            <td class="right">
-                                                <select id="paymentStatus" name="paymentStatus__I_EQ">
-                                                    <option value="">全部</option>
-                                                    <option value="0"<c:if test="${param.paymentStatus__I_EQ eq '0'}">selected="selected"</c:if>>未支付</option>
-                                                    <option value="1"<c:if test="${param.paymentStatus__I_EQ eq '1'}">selected="selected"</c:if>>已支付</option>
-                                                    <option value="2"<c:if test="${param.paymentStatus__I_EQ eq '2'}">selected="selected"</c:if>>订阅中</option>
-                                                    <option value="3"<c:if test="${param.paymentStatus__I_EQ eq '3'}">selected="selected"</c:if>>已退订</option>
-                                                    <option value="4"<c:if test="${param.paymentStatus__I_EQ eq '4'}">selected="selected"</c:if>>已到期</option>
-                                                </select>
-                                            </td>
-                                            <td class="left">订单类型：</td>
+                                            <td class="right"><input type="text" size="16" name="bookCode__S_LIKE" value="${param.bookCode__S_LIKE}"/></td>
+                                            <td class="left">类型：</td>
                                             <td class="right">
                                                 <select id="type" name="type__I_EQ">
                                                     <option value="">全部</option>
-                                                    <option value="1"<c:if test="${param.type__I_EQ eq '1'}">selected="selected"</c:if>>期刊订阅</option>
-                                                    <option value="2"<c:if test="${param.type__I_EQ eq '2'}">selected="selected"</c:if>>整书订购</option>
+                                                    <option value="1"<c:if test="${param.type__I_EQ eq '1'}">selected="selected"</c:if>>退款</option>
+                                                    <option value="2"<c:if test="${param.type__I_EQ eq '2'}">selected="selected"</c:if>>退订</option>
                                                 </select>
                                             </td>
                                             <td class="left">
-                                                订阅期限
+                                                处理进度
                                             </td>
                                             <td class="right">
-                                                <select id="orderPeriod" name="orderPeriod__I_EQ">
+                                                <select  name="approvalStatus__I_EQ">
                                                     <option value="">全部</option>
-                                                    <option value="1"<c:if test="${param.orderPeriod__I_EQ eq '1'}">selected="selected"</c:if>>个月</option>
-                                                    <option value="2"<c:if test="${param.orderPeriod__I_EQ eq '1'}">selected="selected"</c:if>>一季度</option>
-                                                    <option value="3"<c:if test="${param.orderPeriod__I_EQ eq '1'}">selected="selected"</c:if>>半年</option>
-                                                    <option value="4"<c:if test="${param.orderPeriod__I_EQ eq '1'}">selected="selected"</c:if>>一年</option>
+                                                    <option value="1"<c:if test="${param.approvalStatus__I_EQ eq '1'}">selected="selected"</c:if>>处理中</option>
+                                                    <option value="2"<c:if test="${param.approvalStatus__I_EQ eq '2'}">selected="selected"</c:if>>已通过</option>
+                                                    <option value="3"<c:if test="${param.approvalStatus__I_EQ eq '3'}">selected="selected"</c:if>>已驳回</option>
                                                 </select>
-                                            </td>
-                                            <td class="right">
-                                                <button class="btn btn-primary pull-left col-sm-12 tbl-search" data-dismiss="modal"
-                                                        onclick="$.Page.Search('${searchUrlOrder}');return false;">
-                                                    开始搜索
-                                                    <i class="ace-icon fa fa-search"></i>
-                                                </button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="left">
-                                                <label>订购时间</label>
+                                                <label>申请时间</label>
                                             </td>
                                             <td colspan="2">
                                                 <div class="input-daterange input-group">
-                                                    <input type="text" class=" form-control" id="stratTime" name="createTime__D_GTE" value="${param.createTime__D_GTE}"/>
+                                                    <input type="text" class=" form-control" id="startTime" name="createTime__D_GTE" value="${param.createTime__D_GTE}"/>
                                                     <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
                                                     <input type="text" class=" form-control"  id="endTime" name="createTime__D_LTE" value="${param.createTime__D_LTE}">
                                                 </div>
                                             </td>
                                             <td class="left">
-                                                <label>到期时间</label>
-                                            </td>
-                                            <td colspan="2">
-                                                <div class="input-daterange input-group">
-                                                    <input type="text" class=" form-control"  name="expireTime__D_GTE" value="${param.expireTime__D_GTE}"/>
-                                                    <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
-                                                    <input type="text" class=" form-control"   name="expireTime__D_LTE" value="${param.expireTime__D_LTE}">
-                                                </div>
-                                            </td>
-                                            <td class="left">
-                                            登录ID：
+                                            申请人：
                                             </td>
                                             <td class="right">
-                                            <input type="text" size="16"id="orderLoginName" name="orderLoginName__S_EQ" value="${param.orderLoginName__S_EQ}"/>
+                                            <input type="text" size="16" name="applicationLauncher__S_EQ" value="${param.applicationLauncher__S_EQ}"/>
                                             </td>
                                             <td class="left">
-                                            订单号：
+                                            流水号：
                                             </td>
                                             <td class="right">
-                                            <input type="text" size="16"id="orderCode" name="orderCode__S_EQ" value="${param.orderCode__S_EQ}"/>
+                                            <input type="text" size="16" name="applicationCode__S_EQ" value="${param.applicationCode__S_EQ}"/>
                                             </td>
-                                            <td></td>
+                                            <td class="right">
+                                                <button class="btn btn-primary pull-left col-sm-12 tbl-search" data-dismiss="modal"
+                                                        onclick="$.Page.Search('${searchUrlAfterSale}');return false;">
+                                                    开始搜索
+                                                    <i class="ace-icon fa fa-search"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </form>
@@ -371,7 +348,9 @@
                                     <tr>
                                         <th width="50">序号</th>
                                         <th width="60%">申请流水</th>
+                                        <th width="80">类型</th>
                                         <th width="60%">订单号</th>
+                                        <th width="40%">申请描述</th>
                                         <th width="150">图书编码</th>
                                         <th width="150">图书书名</th>
                                         <th width="150">订单时间</th>
@@ -384,35 +363,44 @@
                                         <td colspan="9" style="text-align: center">无相关记录</td>
                                     </c:if>
                                     <tbody>
-                                    <c:forEach items="${page.content}" var="refund" varStatus="status">
+                                    <c:forEach items="${page.content}" var="afterSale" varStatus="status">
                                         <tr>
                                             <td>${status.index+1}</td>
-                                            <td>${refund.refundCode}</td>
-                                            <td>${refund.refundOrderCode}</td>
-                                            <td>${refund.refundBookCode}</td>
-                                            <td>${refund.refundBookName}</td>
-                                            <td><fmt:formatDate value="${refund.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                            <td>${afterSale.applicationCode}</td>
                                             <td>
-                                                <c:if test="${refund.approvalStatus eq 1}"><span class="label label-sm label-inverse">受理中</span></c:if>
-                                                <c:if test="${refund.approvalStatus eq 2}"><span class="label label-sm label-success">已通过</span></c:if>
-                                                <c:if test="${refund.approvalStatus eq 2}"><span class="label label-sm label-danger">已驳回</span></c:if>
+                                                <c:if test="${afterSale.type eq 1}"><span class="label label-sm label-danger">退款</span></c:if>
+                                                <c:if test="${afterSale.type eq 2}"><span class="label label-sm label-warning">退订</span></c:if>
                                             </td>
-                                            <td>${refund.refundLauncher}</td>
+                                            <td>${afterSale.orderCode}</td>
+                                            <td>${afterSale.applicationDescription}</td>
+                                            <td>${afterSale.bookCode}</td>
+                                            <td>${afterSale.bookName}</td>
+                                            <td><fmt:formatDate value="${afterSale.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                            <td>
+                                                <c:if test="${afterSale.approvalStatus eq 1}"><span class="label label-sm label-info">受理中</span></c:if>
+                                                <c:if test="${afterSale.approvalStatus eq 2}"><span class="label label-sm label-success">已通过</span></c:if>
+                                                <c:if test="${afterSale.approvalStatus eq 3}"><span class="label label-sm label-danger">已驳回</span></c:if>
+                                            </td>
+                                            <td>${afterSale.applicationLauncher}</td>
                                             <td>
                                                 <div class="hidden-sm hidden-xs btn-group">
-                                                    <shiro:lacksPermission name="refund:approve"  >
-                                                        <button class="btn btn-xs btn-warning" style="margin-right: 5px;margin-left: 5px">
+                                                    <shiro:lacksPermission name="afterSale:approve"  >
+                                                        <button class="btn btn-xs btn-warning" style="margin-right: 5px;margin-left: 5px"
+                                                                onclick ="$.controller.applicationRemind('${afterSale.applicationCode}')">
                                                             <i class="ace-icon fa fa-exclamation bigger-130">提醒审批</i>
                                                         </button>
-                                                        <button class="btn btn-xs btn-danger" style="margin-right: 5px;margin-left: 5px">
+                                                        <button class="btn btn-xs btn-danger" style="margin-right: 5px;margin-left: 5px"
+                                                                onclick="$.controller.cancel('${afterSale.applicationCode}')">
                                                             <i class="ace-icon fa fa-times-circle bigger-130">取消申请</i>
                                                         </button>
                                                     </shiro:lacksPermission>
-                                                    <shiro:hasPermission name="refund:approve">
-                                                        <button class="btn btn-xs btn-success" style="margin-right: 5px;margin-left: 5px">
+                                                    <shiro:hasPermission name="afterSale:approve">
+                                                        <button class="btn btn-xs btn-success" style="margin-right: 5px;margin-left: 5px"
+                                                                onclick="$.controller.pass('${afterSale.applicationCode}')">
                                                             <i class="ace-icon fa fa-check bigger-130">申请通过</i>
                                                         </button>
-                                                        <button class="btn btn-xs btn-danger" style="margin-right: 5px;margin-left: 5px">
+                                                        <button class="btn btn-xs btn-danger" style="margin-right: 5px;margin-left: 5px"
+                                                                onclick="$.dialog.reject('${afterSale.applicationCode}')">
                                                             <i class="ace-icon fa fa-times bigger-130">申请驳回</i>
                                                         </button>
                                                     </shiro:hasPermission>
@@ -431,7 +419,7 @@
                                         <li>
                                             <a>
                                                 页面大小：
-                                                <select id="pageSize" name="pageSize" onchange="$.Page.pageProcess('${pageUrlOrder}','${page.number}',$('#pageSize').val());">
+                                                <select id="pageSize" name="pageSize" onchange="$.Page.pageProcess('${pageUrlAfterSale}','${page.number}',$('#pageSize').val());">
                                                     <option value="10" <c:if test="${page.size eq 10}"> selected="selected"</c:if>>10</option>
                                                     <option value="20" <c:if test="${page.size eq 20}"> selected="selected"</c:if>>20</option>
                                                     <option value="50" <c:if test="${page.size eq 50}"> selected="selected"</c:if>>50</option>
@@ -442,13 +430,13 @@
                                     <ul class="pagination col-xs-4 no-margin">
                                         <li <c:if test="${page.number eq 0}">class="prev disabled" </c:if>>
                                             <a href="javascript:;" <c:if test="${page.number ne 0}">
-                                                onclick="$.Page.pageProcess('${pageUrlOrder}',0,$('#pageSize').val());"</c:if>>
+                                                onclick="$.Page.pageProcess('${pageUrlAfterSale}',0,$('#pageSize').val());"</c:if>>
                                                 <i class="ace-icon fa fa-angle-double-left"></i>
                                             </a>
                                         </li>
                                         <li <c:if test="${page.number eq 0}">class="prev disabled" </c:if>>
                                             <a href="javascript:;" <c:if test="${page.number ne 0}">
-                                                onclick="$.Page.pageProcess('${pageUrlOrder}','${page.number-1}',$('#pageSize').val());"</c:if>>
+                                                onclick="$.Page.pageProcess('${pageUrlAfterSale}','${page.number-1}',$('#pageSize').val());"</c:if>>
                                                 <i class="ace-icon fa fa-angle-left"></i>
                                             </a>
                                         </li>
@@ -458,14 +446,14 @@
                                         </li>
                                         <li <c:if test="${page.number+1 eq page.totalPages}">class="next disabled" </c:if>>
                                             <a href="javascript:;"<c:if test="${page.number+1 ne page.totalPages}">
-                                                onclick="$.Page.pageProcess('${pageUrlOrder}','${page.number+1}',$('#pageSize').val());"></c:if>
+                                                onclick="$.Page.pageProcess('${pageUrlAfterSale}','${page.number+1}',$('#pageSize').val());"></c:if>
                                             <i class="ace-icon fa fa-angle-right"></i>
                                             </a>
                                         </li>
 
                                         <li <c:if test="${page.number+1 eq page.totalPages}">class="next disabled" style="" </c:if>>
                                             <a href="javascript:;" <c:if test="${page.number+1 ne page.totalPages}">
-                                                onclick="$.Page.pageProcess('${pageUrlOrder}','${page.totalPages-1}',$('#pageSize').val());"></c:if>
+                                                onclick="$.Page.pageProcess('${pageUrlAfterSale}','${page.totalPages-1}',$('#pageSize').val());"></c:if>
                                             <i class="ace-icon fa fa-angle-double-right"></i>
                                             </a>
                                         </li>
@@ -485,7 +473,7 @@
                                                 </a>
                                                 <a>
                                                     <button class="label label-lg label-info arrowed-in-right arrowed"
-                                                            onclick="$.Page.pageProcess('${pageUrlOrder}',$('#targetPage').val(),$('#pageSize').val());">跳转</button>
+                                                            onclick="$.Page.pageProcess('${pageUrlAfterSale}',$('#targetPage').val(),$('#pageSize').val());">跳转</button>
                                                 </a>
                                             </li>
                                         </ul>
@@ -565,8 +553,8 @@
 <script src="../../static/js/jquery.json.min.js"></script>
 <script src="../../static/js/custom/common.js"></script>
 <script src="../../static/js/custom/page.js"></script>
-<script src="../../static/js/custom/order/controller.js"></script>
-<script src="../../static/js/custom/order/dialog.js"></script>
+<script src="../../static/js/custom/aftersale/controller.js"></script>
+<script src="../../static/js/custom/aftersale/dialog.js"></script>
 <script>
     jQuery(function($) {
 

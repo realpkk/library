@@ -35,35 +35,43 @@
             <li class="green">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-                    <span class="badge badge-success">5</span>
+                    <span class="badge badge-success">${count}</span>
                 </a>
 
                 <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
                     <li class="dropdown-header">
                         <i class="ace-icon fa fa-envelope-o"></i>
-                        13条未读信息
+                        ${count}条未读信息
                     </li>
+                    <c:if test="${user.id eq 1}">
+                        <c:forEach items="${message.content}" var="message">
+                            <li class="dropdown-content">
+                                <ul class="dropdown-menu dropdown-navbar">
+                                    <li>
+                                        <a href="/afterSale">
+                                   <span class="msg-body">
+                                       <span class="msg-title">
+                                           <span class="red2">
+                                               <c:if test="${message.type eq 1}">退款</c:if>
+                                               <c:if test="${message.type eq 2}">退订</c:if>
+                                               <c:if test="${message.type eq 3}">申请提醒</c:if>
+                                           </span>
+                                           ${message.sender}售后处理，流水${message.applicationCode}
+                                       </span>
 
-                    <li class="dropdown-content">
-                        <ul class="dropdown-menu dropdown-navbar">
-                            <li>
-                                <a href="#">
-                                    <img src="../../static/imgs/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-                                    <span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">B2C:</span>
-														系统产生20个错误，12个警告...
-													</span>
-
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>2014-12-15 18:00:00</span>
-													</span>
-												</span>
-                                </a>
+                                       <span class="msg-time">
+                                           <i class="ace-icon fa fa-clock-o"></i>
+                                           <span><fmt:formatDate value="${message.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </span>
+                                       </span>
+                                   </span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                        </ul>
-                    </li>
+                        </c:forEach>
+                    </c:if>
+
+
 
                     <li class="dropdown-footer">
                         <a href="inbox.html">

@@ -97,13 +97,15 @@ $(function () {
                 message:"<div class='row'><div class='col-sm-12'>订单编号：<input type='text'value='"+orderCode+"'></div></div><hr />"+
                 "<div class='row'><div class='col-sm-12'>图书书名：<input type='text'value='"+bookName+"'></div></div><hr />"+
                 "<div class='row'><div class='col-sm-12'>订购时间：<input type='text'value='"+createTime+"'></div></div><hr />"+
-                "<div class='row'><div class='col-sm-12'>到期时间：<input type='text'value='"+expireTime+"'></div></div>",
+                "<div class='row'><div class='col-sm-12'>到期时间：<input type='text'value='"+expireTime+"'></div></div>"+
+                "<div class='row'><div class='col-sm-12'><textarea class='col-sm-12' id='refundDescription'></textarea></div></div>",
                 buttons:{
                     "success":{
                         "label":"<i class='ace-icon fa fa-check'></i>确认退订",
                         "className":"btn-sm btn-warning",
                         "callback":function () {
-                            $.controller.unsubscribe(orderCode);
+                            var refundDescription = $("#refundDescription").val();
+                            $.controller.aftersale(orderCode,refundDescription,2);
                         }
                     },
                     "click":{
@@ -126,7 +128,7 @@ $(function () {
                         "className":"btn-sm btn-danger",
                         "callback": function () {
                             var refundDescription = $("#refundDescription").val();
-                            $.controller.refund(orderCode,refundDescription);
+                            $.controller.aftersale(orderCode,refundDescription,1);
                         }
                     },
                     "click":{

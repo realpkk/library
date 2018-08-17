@@ -32,16 +32,9 @@ $(function () {
             $.common.redirectAjaxAction(url,json,redirectUrl);
         },
 
-        unsubscribe:function (orderCode) {
-            var url = "/order/unsubscribe";
-            var data = {"orderCode":orderCode};
-            var json = JSON.stringify(data);
-            $.common.refreshAjaxAction(url,json);
-        },
-
-        refund:function (orderCode,refundDescription) {
-            var url = "/workflow/refund";
-            var data = {"refundOrderCode":orderCode,"refundDescription":refundDescription};
+        aftersale:function (orderCode,refundDescription,type) {
+            var url = "/afterSale/create";
+            var data = {"orderCode":orderCode,"applicationDescription":refundDescription,"type":type};
             var json = JSON.stringify(data);
             $.common.refreshAjaxAction(url,json);
         }

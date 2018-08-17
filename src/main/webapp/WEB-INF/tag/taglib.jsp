@@ -12,7 +12,9 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="pageUrlBook" value="/book/page?" />
 <c:set var="pageUrlOrder" value="/order/page?" />
+<c:set var="pageUrlAfterSale" value="/afterSale/page?" />
 <c:set var="searchUrlBook" value="/book/search?" />
 <c:set var="searchUrlOrder" value="/order/search?" />
+<c:set var="searchUrlAfterSale" value="/afterSale/search?" />
 <c:set var="deleteUrl" value="/book/delete?"/>
 

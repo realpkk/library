@@ -43,6 +43,9 @@ public class Menu extends AbstractEntity implements Comparable<Menu>{
     @Column(name = "psermission")
     private String permission;
 
+    @Column(name = "menu_flag")
+    private String menuFlag;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_rel_menu",joinColumns = {@JoinColumn(name = "menu_id")},inverseJoinColumns = {@JoinColumn(name = "role_id")})
     @Fetch(FetchMode.SUBSELECT)
@@ -137,6 +140,14 @@ public class Menu extends AbstractEntity implements Comparable<Menu>{
 
     public void setMenuList(List<Menu> menuList) {
         this.menuList = menuList;
+    }
+
+    public String getMenuFlag() {
+        return menuFlag;
+    }
+
+    public void setMenuFlag(String menuFlag) {
+        this.menuFlag = menuFlag;
     }
 
     @Override

@@ -16,12 +16,13 @@ public class CodeGenerateUtil {
         return timeCode+"-"+genBookCode+"-"+typeCode+"-"+userCode;
     }
 
-    public static String refundCodeGenerate(String launcher){
+    public static String refundCodeGenerate(String launcher,Integer type){
 
         Long timeStamp = System.currentTimeMillis();
         String timeCode = timeStamp.toString();
+        String typeCode = type.toString();
         String launcherCode = toASCII(launcher);
-        return timeCode+"-"+launcherCode;
+        return timeCode+"-"+typeCode+"-"+launcherCode;
     }
 
     public static String toASCII(String str){

@@ -46,7 +46,7 @@
     </li>
 
     <c:forEach items="${menuList}" var="menu">
-        <li class="">
+        <li <c:if test="${menu.menuFlag eq parentFlag}">class="active open"</c:if>>
             <a href="#" class="dropdown-toggle">
                 <i class="${menu.menuIcon}"></i>
                 <span class="menu-text"> ${menu.menuName} </span>
@@ -57,7 +57,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <c:forEach items="${menu.menuList}" var="childMenu">
-                    <li class="">
+                    <li <c:if test="${menu.menuFlag eq childFlag}">class="active"</c:if>>
                         <a href="${childMenu.menuHref}">
                             <i class="menu-icon fa fa-caret-right"></i>
                                 <i class="${childMenu.menuIcon}"></i>${childMenu.menuName}
